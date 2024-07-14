@@ -17,26 +17,27 @@ class InitialPrice(object):
             return self.mode
     
 class FirstUpDown():    
+    # 初期値の取得
+    def __init__(self):
+        initial_price_instance = InitialPrice()
+        initial_price_instance.select_mode()
+        self.initial_price = initial_price_instance.initial_price()
+        self.plus_minus_value = None
+        self.new_price = None
+    
+    # 1度目の上がり(下がり)値の決定
     def up_down_value(self):
-        self.initial_price = InitialPrice().initial_price
-
-        print(self.initial_price)
-        plus_minus_value = random.uniform(self.initial_price * 0.01, self.initial_price * 0.02)
+        self.plus_minus_value = round(random.uniform(self.initial_price * 0.01, self.initial_price * 0.02), 2)
         random_plus_minus = random.randint(0, 1)
 
+        # random_plus_minusが0の時は下がり値にする
         if random_plus_minus == 0:
-            self.initial_price += round(plus_minus_value, 2)
-        else:
-            self.initial_price -= round(plus_minus_value, 2)
-        
-        print(self.initial_price)
+            self.plus_minus_value = self.plus_minus_value * -1
 
-
-        
-
-
+    def calc(self):
+        self.new_price = self.initial_price + self.plus_minus_value
 
 if __name__ == "__main__":
-    a = InitialPrice()
-    a.select_mode()
-    print(a.initial_price())
+    a = FirstUpDown()
+    a.up_down_value()
+    a.calc()
