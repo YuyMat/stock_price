@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{kk}}</h1>
+    <div id="time"></div>
+    <form method="POST">
+        mode:<br>
+        <input type="radio" id="r" name="mode" value="r" checked onclick="toggleTextbox()"/>
+        <label for="huey">Random</label>
+        
+        <input type="radio" id="int" name="mode" value="int" onclick="toggleTextbox()"/>
+        <label for="dewey">number</label>
+        
+        <input type="text" name="text" id="input_initial_price" disabled><br>
+        <button type="submit">決定</button>
+    </form>
+</body>
+</html>
