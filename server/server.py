@@ -1,18 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
-import sys
-sys.path.append("/Users/yuya/Desktop/MyWork/false_stock_price")
+import process
 
-from Stock import stock
-
-chart = stock.ChartMovement()
-print(chart.price)
 app = Flask(__name__, template_folder="templates")
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def hello_world():
-    a = "AA"
-    return render_template("index.html", title=a, kk=a)
+    chart_value = None  # 初期化
+    if request.method == "POST":
+        chart_value = process.Main()
+        chart_value.run()
+    return render_template("index.html", kk=chart_value.initial_price if chart_value else None)
 
 if __name__ == "__main__":
     app.run(debug=True)
